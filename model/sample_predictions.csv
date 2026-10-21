@@ -1,0 +1,11 @@
+,Age,Fare,FamilySize,FarePerPerson,Pclass,Sex,Embarked,Title,IsAlone,HasCabin,Actual,Predicted,P(survive)
+565,24.0,24.15,3,8.049999999999999,3,male,S,Mr,0,0,Died,Died,0.083
+160,44.0,16.1,2,8.05,3,male,S,Mr,0,0,Died,Died,0.105
+553,22.0,7.225,1,7.225,3,male,C,Mr,1,0,Survived,Died,0.121
+860,41.0,14.1083,3,4.702766666666666,3,male,S,Mr,0,0,Died,Died,0.087
+241,,15.5,2,7.75,3,female,Q,Miss,0,0,Survived,Survived,0.626
+559,36.0,17.4,2,8.7,3,female,S,Mrs,0,0,Survived,Died,0.472
+387,36.0,13.0,1,13.0,2,female,S,Miss,1,0,Survived,Survived,0.856
+536,45.0,26.55,1,26.55,1,male,S,Rare,1,1,Died,Survived,0.773
+698,49.0,110.8833,3,36.9611,1,male,C,Mr,0,1,Died,Survived,0.803
+99,34.0,26.0,2,13.0,2,male,S,Mr,0,0,Died,Died,0.121

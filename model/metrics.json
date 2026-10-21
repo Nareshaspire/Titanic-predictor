@@ -1,0 +1,117 @@
+{
+  "selected_model": "Gradient Boosting",
+  "test_metrics": {
+    "Accuracy": 0.7932960893854749,
+    "Precision": 0.7666666666666667,
+    "Recall": 0.6666666666666666,
+    "F1": 0.7131782945736435,
+    "ROC-AUC": 0.8398550724637681
+  },
+  "cv_comparison": [
+    {
+      "Model": "Gradient Boosting",
+      "CV Accuracy": 0.8314980793854033,
+      "CV Acc Std": 0.025173129619105557,
+      "CV ROC-AUC": 0.9033866618114266
+    },
+    {
+      "Model": "Random Forest",
+      "CV Accuracy": 0.8132670146754654,
+      "CV Acc Std": 0.024828073665491217,
+      "CV ROC-AUC": 0.8798469280052352
+    },
+    {
+      "Model": "Logistic Regression",
+      "CV Accuracy": 0.8272628779671033,
+      "CV Acc Std": 0.02756198614423449,
+      "CV ROC-AUC": 0.8709374043464952
+    },
+    {
+      "Model": "Decision Tree",
+      "CV Accuracy": 0.8258839751797499,
+      "CV Acc Std": 0.01576890748224545,
+      "CV ROC-AUC": 0.8678408431229748
+    },
+    {
+      "Model": "SVM (RBF)",
+      "CV Accuracy": 0.8230178272431793,
+      "CV Acc Std": 0.025025424603644018,
+      "CV ROC-AUC": 0.8656669358158388
+    },
+    {
+      "Model": "KNN",
+      "CV Accuracy": 0.7978036048458583,
+      "CV Acc Std": 0.028154001946560498,
+      "CV ROC-AUC": 0.8488636891379839
+    }
+  ],
+  "tuned": [
+    {
+      "Model": "Random Forest",
+      "cv_auc": 0.8909945589647783,
+      "params": {
+        "clf__max_depth": null,
+        "clf__min_samples_leaf": 2,
+        "clf__n_estimators": 200
+      }
+    },
+    {
+      "Model": "Gradient Boosting",
+      "cv_auc": 0.9033866618114266,
+      "params": {
+        "clf__learning_rate": 0.1,
+        "clf__max_depth": 3,
+        "clf__n_estimators": 100
+      }
+    },
+    {
+      "Model": "Logistic Regression",
+      "cv_auc": 0.8709374043464952,
+      "params": {
+        "clf__C": 1
+      }
+    }
+  ],
+  "test_all_models": [
+    {
+      "Model": "Logistic Regression",
+      "Accuracy": 0.8268156424581006,
+      "Precision": 0.7878787878787878,
+      "Recall": 0.7536231884057971,
+      "F1": 0.7703703703703704,
+      "ROC-AUC": 0.8714097496706192
+    },
+    {
+      "Model": "Random Forest",
+      "Accuracy": 0.8044692737430168,
+      "Precision": 0.7833333333333333,
+      "Recall": 0.6811594202898551,
+      "F1": 0.7286821705426356,
+      "ROC-AUC": 0.8424242424242425
+    },
+    {
+      "Model": "Gradient Boosting",
+      "Accuracy": 0.7932960893854749,
+      "Precision": 0.7666666666666667,
+      "Recall": 0.6666666666666666,
+      "F1": 0.7131782945736435,
+      "ROC-AUC": 0.8398550724637681
+    }
+  ],
+  "features": [
+    "Age",
+    "Fare",
+    "FamilySize",
+    "FarePerPerson",
+    "Pclass",
+    "Sex",
+    "Embarked",
+    "Title",
+    "IsAlone",
+    "HasCabin"
+  ],
+  "defaults": {
+    "Age": 28.5,
+    "Fare": 14.4542
+  }
+}
