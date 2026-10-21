@@ -1,52 +1,176 @@
 # Titanic Survival Prediction System
 
-An end-to-end machine learning project that predicts whether a Titanic passenger survived, with an interactive Streamlit interface.
+## Overview
+This project develops a machine learning application to predict whether a Titanic passenger survived based on passenger information. The system follows a complete machine learning workflow, including data cleaning, exploratory data analysis (EDA), feature engineering, model selection, evaluation, and interactive prediction through a Streamlit web interface.
 
-**Dataset:** public Titanic passenger data (891 rows, 12 columns), `data/titanic.csv`
-(source: https://github.com/datasciencedojo/datasets). Target: `Survived` (0/1).
+The objective is to build a reliable prediction model using a real-world dataset and to provide a user-friendly interface for making survival predictions based on relevant passenger attributes.
 
-## Project structure
+## Problem Statement
+The Titanic disaster is a classic classification problem in machine learning. The goal is to predict the survival outcome of passengers using features such as sex, age, passenger class, ticket fare, family size, and embarkation port. This project applies supervised learning techniques to build and evaluate a predictive model.
 
+## Dataset
+The project uses the public Titanic dataset, which contains passenger records with demographic and travel information. The dataset includes attributes such as:
+
+- PassengerId
+- Pclass
+- Name
+- Sex
+- Age
+- SibSp
+- Parch
+- Ticket
+- Fare
+- Cabin
+- Embarked
+- Survived
+
+The target variable is:
+- Survived: 0 = Did not survive, 1 = Survived
+
+This dataset is stored in `data/titanic.csv` and is used for both training and evaluation.
+
+## Project Structure
+```text
+Titanic-predictor/
+├── app.py                  # Streamlit-based interactive prediction interface
+├── train.py                # End-to-end ML training pipeline
+├── requirements.txt        # Python dependencies
+├── README.md               # Project documentation
+├── data/
+│   └── titanic.csv         # Titanic dataset
+├── model/
+│   ├── titanic_model.joblib
+│   ├── metrics.json
+│   ├── model_comparison.csv
+│   └── sample_predictions.csv
+├── figures/
+│   ├── eda_overview.png
+│   ├── evaluation.png
+│   ├── feature_importance.png
+│   ├── correlation_heatmap.png
+│   └── missing_values.png
+└── .gitignore
 ```
-train.py            full pipeline: clean -> EDA -> features -> models -> tuning -> evaluation
-app.py              Streamlit prediction interface
-data/titanic.csv    dataset
-model/              saved model (joblib), metrics.json, comparison + sample predictions
-figures/            EDA and evaluation plots
-requirements.txt
-```
 
-## Run it
+## Methodology
+
+### 1. Data Cleaning
+The dataset is cleaned to handle missing and inconsistent values. This includes:
+- removing duplicate records
+- filling missing embarkation values using the mode
+- deriving a cabin indicator (`HasCabin`)
+- clipping extreme fare values to reduce skew
+- preserving missing age values for model-based imputation
+
+### 2. Exploratory Data Analysis (EDA)
+The project performs EDA to understand the relationships between features and the target variable. Visualizations are generated to analyze:
+- survival distribution
+- survival rate by sex, class, family size, and title
+- age distribution by outcome
+- correlation among variables
+- missing value patterns
+
+### 3. Feature Engineering
+Relevant features are engineered to improve predictive performance, including:
+- `Title` extracted from the passenger name
+- `FamilySize`
+- `IsAlone`
+- `FarePerPerson`
+- `HasCabin`
+
+Irrelevant or redundant columns such as unique identifiers and raw cabin names are excluded from the final feature set.
+
+### 4. Model Training and Comparison
+Multiple classification models are trained and compared, including:
+- Logistic Regression
+- K-Nearest Neighbors (KNN)
+- Decision Tree
+- Support Vector Machine (SVM)
+- Random Forest
+- Gradient Boosting
+
+The models are evaluated using stratified cross-validation and compared based on their performance.
+
+### 5. Hyperparameter Tuning
+Hyperparameter tuning is performed using `GridSearchCV` for the strongest candidate models to improve validation performance and select the best configuration.
+
+### 6. Model Evaluation
+The final model is evaluated on a held-out test set using metrics such as:
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+
+Confusion matrices and ROC curves are also generated to assess classification quality.
+
+## Requirements Coverage
+This project fulfills the key requirements for a machine learning prediction system:
+
+- Real-world dataset used: Titanic public data set
+- Data cleaning and preprocessing performed
+- Exploratory data analysis completed
+- Relevant features selected and engineered
+- At least one machine learning model trained
+- Multiple models compared
+- Model evaluated using appropriate metrics
+- Prediction results displayed
+- Interactive prediction interface implemented using Streamlit
+- Hyperparameter tuning included as a bonus feature
+
+## Technologies Used
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Matplotlib
+- Seaborn
+- Joblib
+- Streamlit
+
+## Installation
+To run the project locally, first install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
-python train.py          # trains, evaluates, writes model/ and figures/
-streamlit run app.py     # opens the interactive predictor
 ```
 
-## What the pipeline does
+## Running the Project
 
-1. **Cleaning:** `Embarked` (2 missing) filled with the mode; `Cabin` (77% missing) reduced to a `HasCabin` flag; `Fare` clipped at the 99th percentile; `Age` (20% missing) imputed with the median *inside* the sklearn pipeline, so there is no leakage from the test set.
-2. **EDA:** target balance, survival by sex/class/title/family size, age distribution, correlation heatmap, missing-value chart (`figures/`).
-3. **Feature engineering:** `Title` extracted from `Name` (rare titles grouped), `FamilySize`, `IsAlone`, `FarePerPerson`, `HasCabin`.
-4. **Feature selection:** dropped identifiers (`PassengerId`, `Ticket`), raw `Name`/`Cabin`, and `SibSp`/`Parch` (captured by `FamilySize`). Permutation importance is reported afterwards.
-5. **Model comparison:** Logistic Regression, KNN, Decision Tree, SVM, Random Forest, Gradient Boosting, 5-fold stratified CV on an 80% training split.
-6. **Hyperparameter tuning:** `GridSearchCV` (scored on ROC-AUC) for Random Forest, Gradient Boosting and Logistic Regression.
-7. **Evaluation:** the model with the best CV ROC-AUC is selected, then scored once on the 20% held-out test set (accuracy, precision, recall, F1, ROC-AUC, confusion matrix, ROC curves).
-8. **Prediction display:** sample predictions with probabilities (`model/sample_predictions.csv`) and the Streamlit app.
+### Train the model
+```bash
+python train.py
+```
+
+This script:
+- loads the dataset
+- performs preprocessing and feature engineering
+- analyzes the data
+- trains and compares models
+- tunes hyperparameters
+- evaluates results
+- saves the best model and generated artifacts
+
+### Launch the Streamlit app
+```bash
+streamlit run app.py
+```
+
+The interactive interface allows users to input passenger characteristics and obtain a survival probability prediction.
+
+## Model Outputs
+The project stores generated artifacts in the `model/` and `figures/` directories, including:
+- trained model (`titanic_model.joblib`)
+- metrics (`metrics.json`)
+- comparison tables
+- sample predictions
+- EDA and evaluation plots
 
 ## Results
+The best-performing model is selected using cross-validation performance and then evaluated on the held-out test set. The final results include both classification metrics and visual performance summaries, allowing users to compare models and understand which features contribute most to survival prediction.
 
-| Model (tuned) | CV ROC-AUC | Test Accuracy | Test F1 | Test ROC-AUC |
-|---|---|---|---|---|
-| Gradient Boosting (selected by CV) | 0.903 | 0.793 | 0.713 | 0.840 |
-| Random Forest | 0.891 | 0.804 | 0.729 | 0.842 |
-| Logistic Regression | 0.871 | 0.827 | 0.770 | 0.871 |
+## Conclusion
+This project demonstrates an end-to-end machine learning workflow for a real-world classification problem. It combines data preparation, feature engineering, model comparison, evaluation, and deployment into a practical and interactive prediction system.
 
-Notes:
-- The test set is only 179 passengers, so differences of a few points between models are within noise. Logistic Regression scored best on the test set even though Gradient Boosting won in cross-validation; the selection rule uses CV only, to avoid choosing on the test set.
-- The strongest predictors are `Title` (which encodes sex, age group and marital status), then `Pclass`, `FarePerPerson` and `FamilySize`.
-
-## Ideas to extend
-
-Stacking/ensembling, threshold tuning for recall, SHAP explanations, a FastAPI endpoint, deployment to Streamlit Community Cloud.
+## License
+This project is intended for educational and demonstration purposes.
